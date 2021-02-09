@@ -9,18 +9,11 @@ function App() {
 
   const[currentUser, setCurrentUser] = useState(null);
   const[expenses, setExpenses] = useState([])
+  const[wallet, setWallet] = useState(null)
+  const[search, setSearch] = useState("")
+  const[sortBy, setSortBy] = useState("name")
+
  
-  // get all expenses joiner table
-  // useEffect(() => {
-  //   fetch('http://localhost:3000/uexes')
-  //   .then((r)=>r.json())
-  //   .then(allData => {
-  //     setUex(allData)
-  //   })
-  // }, [])
-
-
-
 // Chatbot fetch
   useEffect(() => {
     setTimeout (
@@ -43,21 +36,75 @@ function App() {
       .then((r) => r.json())
       .then(userObj => {
         setCurrentUser(userObj)
-        debugger 
         setExpenses(userObj.expenses)
-        
+        setWallet(userObj.monthly_income)
       });
   }
  
   function handleLogout() {
     setCurrentUser(null);
   }
+
+  function handleSearchChange(newSearch){
+    setSearch(newSearch)
+  }
+
+ 
+  // function onAddExpense(newExpense){
+  //   setExpenses([...expenses,newExpense])
+  // }
+
+  function handleDeleteExpense(expenseToDelete){
+    fetch(`http://localhost:3000/expenses/${expenseToDelete.id}`, {
+      method: "DELETE"
+  })
+  .then(r => r.json())
+  .then(expensebj => {
+    setExpenses(expenses.filter((expense) => expense.id !== expenseToDelete.id))
+    fetch(`http://localhost:3000/users/${currentUser.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        monthly_income: wallet + expenseToDelete.cost
+      })
+    })
+    .then(r => r.json())
+    .then(updatedUserObj => setWallet(updatedUserObj.monthly_income))
+  })
+  }
+
+  const displayedExpenses = expenses.filter( expense => 
+    expense.name.toLowerCase().includes(search.toLowerCase()))
+    .sort((x, y) => {
+      if (sortBy === "Due soon") {
+        return x.created_at-y.created_at
+      } else{
+        return x.name.localeCompare(y.name)
+      }
+    })
+
+  function onHandleUpdate(updatedDetails) {
+    const updatedExpenseList = expenses.map((expense) => {
+      return expense.id === updatedDetails.id ? updatedDetails : expense
+    })
+    setExpenses(updatedExpenseList)
+  }
+
+
+
   return (
     <div className="App">
       <Header 
         onLogin={handleLogin}
         onLogout={handleLogout} 
         currentUser={currentUser}
+        wallet={wallet}
+        expenses={expenses}
+        setExpenses={setExpenses}
+        setWallet={setWallet}   
+       
       />
       <BrowserRouter>
       <Switch>
@@ -69,7 +116,13 @@ function App() {
         </Route>
         <Route exact path="/home">
           <ExpenseCard
-          expenses={expenses}
+          expenses={displayedExpenses}
+          search={search}
+          handleSearchChange={handleSearchChange}
+          handleDeleteExpense={handleDeleteExpense}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+          onHandleUpdate={onHandleUpdate}
           />
         </Route>
       </Switch>

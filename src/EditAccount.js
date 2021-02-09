@@ -8,7 +8,7 @@ function EditAccount() {
 
     return (
        <div className="editform">
-        <h1>edit form </h1>
+        <h1>edit account</h1>
        </div>
        
     )
