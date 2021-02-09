@@ -3,7 +3,7 @@ import EditForm from "./EditForm"
 
 
 
-function ExpenseDetail({ expense,handleDeleteExpense, onHandleUpdate}) {
+function ExpenseDetail({ expense,handleDeleteExpense, onHandleUpdate, setWallet, wallet, currentUser}) {
 
     const [expenses, setExpenses] = useState(null)
     const [modalState, setModalState] = useState(false)
@@ -26,7 +26,7 @@ function ExpenseDetail({ expense,handleDeleteExpense, onHandleUpdate}) {
        </div>
        <div className={`modalBackground modalShowing-${modalState}`}>
         <div className="modalInner">
-        <EditForm id={expense.id} name={expense.name} cost={expense.cost} onHandleUpdate={onHandleUpdate} handleUpdateExpense={handleUpdateExpense} />
+        <EditForm id={expense.id} name={expense.name} cost={expense.cost} onHandleUpdate={onHandleUpdate} handleUpdateExpense={handleUpdateExpense} setWallet={setWallet} wallet={wallet} currentUser={currentUser}/>
             <button className="exitButton" onClick={() => toggleModalState()}>Exit</button>
         </div>
        </div>

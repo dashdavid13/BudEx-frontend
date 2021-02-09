@@ -5,7 +5,7 @@ import FilterSort from './FilterSort'
 
 
 
-function ExpenseCard({expenses, search, handleSearchChange, handleDeleteExpense, sortBy, setSortBy, onHandleUpdate}) {
+function ExpenseCard({setWallet ,wallet, expenses, search, handleSearchChange, handleDeleteExpense, sortBy, setSortBy, onHandleUpdate, currentUser}) {
 
     const usersExpenses = expenses.map((expense) => {
     return (<ExpenseDetail
@@ -13,6 +13,9 @@ function ExpenseCard({expenses, search, handleSearchChange, handleDeleteExpense,
         expense={expense}
         handleDeleteExpense={handleDeleteExpense}
         onHandleUpdate={onHandleUpdate}
+        setWallet={setWallet}
+        wallet={wallet}
+        currentUser={currentUser}
         />
         )
     })

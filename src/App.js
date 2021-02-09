@@ -9,12 +9,13 @@ function App() {
 
   const[currentUser, setCurrentUser] = useState(null);
   const[expenses, setExpenses] = useState([])
-  const[wallet, setWallet] = useState(null)
+  const[wallet, setWallet] = useState("")
   const[search, setSearch] = useState("")
   const[sortBy, setSortBy] = useState("name")
 
  
 // Chatbot fetch
+
   useEffect(() => {
     setTimeout (
       () => {
@@ -27,7 +28,8 @@ function App() {
       1000
     );
 
-  },[]);
+  },[])
+
 
   // Chatbot fetch ends here
 
@@ -39,6 +41,7 @@ function App() {
         setExpenses(userObj.expenses)
         setWallet(userObj.monthly_income)
       });
+      
   }
  
   function handleLogout() {
@@ -50,9 +53,6 @@ function App() {
   }
 
  
-  // function onAddExpense(newExpense){
-  //   setExpenses([...expenses,newExpense])
-  // }
 
   function handleDeleteExpense(expenseToDelete){
     fetch(`http://localhost:3000/expenses/${expenseToDelete.id}`, {
@@ -72,6 +72,7 @@ function App() {
     })
     .then(r => r.json())
     .then(updatedUserObj => setWallet(updatedUserObj.monthly_income))
+  
   })
   }
 
@@ -123,11 +124,17 @@ function App() {
           sortBy={sortBy}
           setSortBy={setSortBy}
           onHandleUpdate={onHandleUpdate}
+          wallet={wallet}
+          setWallet={setWallet}   
+          currentUser={currentUser}
           />
         </Route>
       </Switch>
       </BrowserRouter>
+      {currentUser ? 
       <div id="chat-bot"></div>
+      : null }
+      
     </div>
   );
 }

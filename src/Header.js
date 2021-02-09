@@ -11,6 +11,7 @@ function Header({onLogin, onLogout, currentUser, wallet, setWallet, expenses, se
     const [secondModalState, setSecondModalState] = useState(false )
 
 
+
     const toggleModalState = () => {
         setModalState(!modalState)
     }
@@ -18,7 +19,7 @@ function Header({onLogin, onLogout, currentUser, wallet, setWallet, expenses, se
     const secondToggleModalState = () => {
         setSecondModalState(!secondModalState)
     }
-
+    
     return (
         <>
         <div className="banner">
@@ -53,7 +54,7 @@ function Header({onLogin, onLogout, currentUser, wallet, setWallet, expenses, se
                         expenses={expenses}
                         setExpenses={setExpenses}
                         setWallet={setWallet} 
-                        wallet={setWallet}
+                        wallet={wallet}
                         />
                     : null}
                     {currentUser ?

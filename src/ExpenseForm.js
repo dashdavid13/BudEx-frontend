@@ -3,13 +3,14 @@ import React, {useState} from 'react'
 
 
 
-function ExpenseForm({currentUser,  wallet, setExpenses, expenses, setWallet  }) {
+function ExpenseForm({currentUser, setExpenses, expenses, wallet, setWallet  }) {
+
 
     const[name, setName] = useState("")
     const[cost, setCost] = useState("")
    
-const totalCost = currentUser.monthly_income - expenses.cost 
-    function handleSubmit(e){
+
+function handleSubmit(e){
       e.preventDefault()
       const data = {
         name:name,
@@ -33,7 +34,7 @@ if(currentUser && wallet >= cost ){
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                monthly_income: totalCost
+                monthly_income: wallet - cost
                 })
             })
             .then(r => r.json())
