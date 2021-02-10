@@ -16,19 +16,19 @@ function App() {
  
 // Chatbot fetch
 
-  useEffect(() => {
-    setTimeout (
-      () => {
-        const script = document.createElement("script");
-        script.src = "./chat_bot_app.js";
-        script.setAttribute("data-main","chat_bot_app");
-        script.async = true;
-        document.body.appendChild(script);
-      },
-      1000
-    );
+  // useEffect(() => {
+  //   setTimeout (
+  //     () => {
+  //       const script = document.createElement("script");
+  //       script.src = "./chat_bot_app.js";
+  //       script.setAttribute("data-main","chat_bot_app");
+  //       script.async = true;
+  //       document.body.appendChild(script);
+  //     },
+  //     1000
+  //   );
 
-  },[])
+  // },[])
 
 
   // Chatbot fetch ends here
@@ -76,7 +76,9 @@ function App() {
   })
   }
 
+   
   const displayedExpenses = expenses.filter( expense => 
+   
     expense.name.toLowerCase().includes(search.toLowerCase()))
     .sort((x, y) => {
       if (sortBy === "Due soon") {
