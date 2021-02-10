@@ -74,7 +74,9 @@ function App() {
   })
   }
 
+   
   const displayedExpenses = expenses.filter( expense => 
+   
     expense.name.toLowerCase().includes(search.toLowerCase()))
     .sort((x, y) => {
       if (sortBy === "Due soon") {
