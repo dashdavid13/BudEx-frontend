@@ -16,19 +16,19 @@ function App() {
  
 // Chatbot fetch
 
-  useEffect(() => {
-    setTimeout (
-      () => {
-        const script = document.createElement("script");
-        script.src = "./chat_bot_app.js";
-        script.setAttribute("data-main","chat_bot_app");
-        script.async = true;
-        document.body.appendChild(script);
-      },
-      1000
-    );
+  // useEffect(() => {
+  //   setTimeout (
+  //     () => {
+  //       const script = document.createElement("script");
+  //       script.src = "./chat_bot_app.js";
+  //       script.setAttribute("data-main","chat_bot_app");
+  //       script.async = true;
+  //       document.body.appendChild(script);
+  //     },
+  //     1000
+  //   );
 
-  },[])
+  // },[])
 
 
   // Chatbot fetch ends here
@@ -41,7 +41,6 @@ function App() {
         setExpenses(userObj.expenses)
         setWallet(userObj.monthly_income)
       });
-      
   }
  
   function handleLogout() {
@@ -72,7 +71,6 @@ function App() {
     })
     .then(r => r.json())
     .then(updatedUserObj => setWallet(updatedUserObj.monthly_income))
-  
   })
   }
 
@@ -124,9 +122,6 @@ function App() {
           sortBy={sortBy}
           setSortBy={setSortBy}
           onHandleUpdate={onHandleUpdate}
-          wallet={wallet}
-          setWallet={setWallet}   
-          currentUser={currentUser}
           />
         </Route>
       </Switch>
