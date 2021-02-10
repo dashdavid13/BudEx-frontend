@@ -41,7 +41,6 @@ function App() {
         setExpenses(userObj.expenses)
         setWallet(userObj.monthly_income)
       });
-      
   }
  
   function handleLogout() {
@@ -72,7 +71,6 @@ function App() {
     })
     .then(r => r.json())
     .then(updatedUserObj => setWallet(updatedUserObj.monthly_income))
-  
   })
   }
 
@@ -126,9 +124,6 @@ function App() {
           sortBy={sortBy}
           setSortBy={setSortBy}
           onHandleUpdate={onHandleUpdate}
-          wallet={wallet}
-          setWallet={setWallet}   
-          currentUser={currentUser}
           />
         </Route>
       </Switch>

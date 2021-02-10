@@ -54,7 +54,7 @@ function Header({onLogin, onLogout, currentUser, wallet, setWallet, expenses, se
                         expenses={expenses}
                         setExpenses={setExpenses}
                         setWallet={setWallet} 
-                        wallet={wallet}
+                        wallet={setWallet}
                         />
                     : null}
                     {currentUser ?
@@ -66,7 +66,7 @@ function Header({onLogin, onLogout, currentUser, wallet, setWallet, expenses, se
                 <button  className="exform_button"onClick={() => toggleModalState()}>Add Expense</button>
                 : null}
             </nav>
-            {currentUser ? <h1 className="welcome-user"> Welcome, {currentUser.first_name}! You have ${wallet} remaining for the month</h1> : null}
+            {currentUser ? <h1 className="welcome-user"> Welcome, {currentUser.first_name}! You have ${currentUser.monthly_income} remaining for the month</h1> : null}
         </div>
         </>
        
