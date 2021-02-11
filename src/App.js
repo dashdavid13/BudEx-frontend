@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from "./Header"
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import ExpenseCard from "./ExpenseCard"
@@ -12,7 +12,6 @@ function App() {
   const[wallet, setWallet] = useState("")
   const[search, setSearch] = useState("")
   const[sortBy, setSortBy] = useState("name")
-
  
 // Chatbot fetch
 
@@ -54,6 +53,7 @@ function App() {
  
 
   function handleDeleteExpense(expenseToDelete){
+    debugger
     fetch(`http://localhost:3000/expenses/${expenseToDelete.id}`, {
       method: "DELETE"
   })
@@ -93,7 +93,7 @@ function App() {
     setExpenses(updatedExpenseList)
   }
 
-
+  
 
   return (
     <div className="App">
@@ -101,10 +101,10 @@ function App() {
         onLogin={handleLogin}
         onLogout={handleLogout} 
         currentUser={currentUser}
-        wallet={wallet}
         expenses={expenses}
         setExpenses={setExpenses}
         setWallet={setWallet}   
+        wallet={wallet}
        
       />
       <BrowserRouter>
@@ -124,6 +124,8 @@ function App() {
           sortBy={sortBy}
           setSortBy={setSortBy}
           onHandleUpdate={onHandleUpdate}
+          wallet={wallet}
+          setWallet={setWallet}
           />
         </Route>
       </Switch>

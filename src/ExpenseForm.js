@@ -18,6 +18,7 @@ function handleSubmit(e){
         user_id:currentUser,
       }
 if(currentUser && wallet >= cost ){
+ debugger
     fetch("http://localhost:3000/expenses/new", {
         method: "POST",
         headers: {

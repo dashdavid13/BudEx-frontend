@@ -18,7 +18,7 @@ function handleEditForm(e) {
     }
   
     if(currentUser && wallet >= cost){
-        debugger
+        
         onHandleUpdate(data)
         fetch(`http://localhost:3000/expenses/${id}`, {
             method: "PATCH", 
