@@ -11,18 +11,19 @@ function ExpenseForm({currentUser, setExpenses, expenses, wallet, setWallet  }) 
    
 
 function handleSubmit(e){
+    debugger
       e.preventDefault()
       const data = {
         name:name,
         cost:cost,
-        user_id:currentUser,
+        user_id:currentUser.id,
       }
 if(currentUser && wallet >= cost ){
- debugger
     fetch("http://localhost:3000/expenses/new", {
         method: "POST",
         headers: {
-          "Content-Type":"application/json"
+          "Content-Type":"application/json",
+          "Accept": "application/json"
         },
         body:JSON.stringify(data)
       })
@@ -32,7 +33,8 @@ if(currentUser && wallet >= cost ){
             fetch(`http://localhost:3000/users/${currentUser.id}`, {
                 method: "PATCH",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
                 },
                 body: JSON.stringify({
                 monthly_income: wallet - cost

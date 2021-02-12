@@ -5,7 +5,7 @@ import ExpenseForm from "./ExpenseForm"
 
 
 
-function Header({onLogin, onLogout, currentUser, wallet, setWallet, expenses, setExpenses, onAddExpense}) {
+function Header({ onLogout, currentUser, wallet, setWallet, expenses, setExpenses, onAddExpense}) {
     
     const [modalState, setModalState] = useState(false)
     const [secondModalState, setSecondModalState] = useState(false )

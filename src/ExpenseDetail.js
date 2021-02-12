@@ -7,6 +7,7 @@ function ExpenseDetail({ expense,handleDeleteExpense, onHandleUpdate, setWallet,
 
     const [expenses, setExpenses] = useState(null)
     const [modalState, setModalState] = useState(false)
+    
 
     const toggleModalState = () => {
         setModalState(!modalState)

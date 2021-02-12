@@ -9,6 +9,7 @@ function EditForm({id, onHandleUpdate, handleUpdateExpense, wallet, setWallet, c
    const[cost, setCost] =useState('')
 
 function handleEditForm(e) {
+    debugger
     e.preventDefault();
 
     const data={
@@ -18,7 +19,7 @@ function handleEditForm(e) {
     }
   
     if(currentUser && wallet >= cost){
-        
+         
         onHandleUpdate(data)
         fetch(`http://localhost:3000/expenses/${id}`, {
             method: "PATCH", 

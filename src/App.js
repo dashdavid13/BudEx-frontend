@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from "./Header"
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import ExpenseCard from "./ExpenseCard"
@@ -12,6 +12,31 @@ function App() {
   const[wallet, setWallet] = useState("")
   const[search, setSearch] = useState("")
   const[sortBy, setSortBy] = useState("name")
+  const [isLoaded, setIsLoaded] = useState(false)
+
+
+  useEffect(() => {
+    
+    const token = localStorage.getItem("token")
+  
+    fetch("http://localhost:3000/home", {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
+    .then (r => r.json())
+    .then ((user) => {
+      setCurrentUser(user)
+      setExpenses(user.expenses)
+      setWallet(user.monthly_income)
+      setIsLoaded(true)
+    })
+  }, [])
+
+
+
+  
  
 // Chatbot fetch
 
@@ -28,22 +53,10 @@ function App() {
   //   );
 
   // },[])
-
-
-  // Chatbot fetch ends here
-
-  function handleLogin() {
-    fetch("http://localhost:3000/login")
-      .then((r) => r.json())
-      .then(userObj => {
-        setCurrentUser(userObj)
-        setExpenses(userObj.expenses)
-        setWallet(userObj.monthly_income)
-      });
-  }
  
   function handleLogout() {
     setCurrentUser(null);
+    localStorage.removeItem("token")
   }
 
   function handleSearchChange(newSearch){
@@ -53,12 +66,11 @@ function App() {
  
 
   function handleDeleteExpense(expenseToDelete){
-    debugger
     fetch(`http://localhost:3000/expenses/${expenseToDelete.id}`, {
       method: "DELETE"
   })
   .then(r => r.json())
-  .then(expensebj => {
+  .then(expenseObj => {
     setExpenses(expenses.filter((expense) => expense.id !== expenseToDelete.id))
     fetch(`http://localhost:3000/users/${currentUser.id}`, {
       method: "PATCH",
@@ -75,16 +87,7 @@ function App() {
   }
 
    
-  const displayedExpenses = expenses.filter( expense => 
-   
-    expense.name.toLowerCase().includes(search.toLowerCase()))
-    .sort((x, y) => {
-      if (sortBy === "Due soon") {
-        return x.created_at-y.created_at
-      } else{
-        return x.name.localeCompare(y.name)
-      }
-    })
+
 
   function onHandleUpdate(updatedDetails) {
     const updatedExpenseList = expenses.map((expense) => {
@@ -95,10 +98,21 @@ function App() {
 
   
 
+// if (!isLoaded) return <h1>Loading...</h1>
+
+// const displayedExpenses = expenses.filter( expense => 
+   
+//   expense.name.toLowerCase().includes(search.toLowerCase()))
+//   .sort((x, y) => {
+//     if (sortBy === "Due soon") {
+//       return x.created_at-y.created_at
+//     } else{
+//       return x.name.localeCompare(y.name)
+//     }
+//   })
   return (
     <div className="App">
       <Header 
-        onLogin={handleLogin}
         onLogout={handleLogout} 
         currentUser={currentUser}
         expenses={expenses}
@@ -109,15 +123,18 @@ function App() {
       />
       <BrowserRouter>
       <Switch>
+
         <Route exact path="/">
           <Login 
+          setCurrentUser={setCurrentUser}
           currentUser={currentUser} 
-          onLogin={handleLogin} 
+
           />
         </Route>
-        <Route exact path="/home">
+        <Route exact path="/profile">
+          {currentUser ? (
           <ExpenseCard
-          expenses={displayedExpenses}
+          expenses={expenses}
           search={search}
           handleSearchChange={handleSearchChange}
           handleDeleteExpense={handleDeleteExpense}
@@ -126,8 +143,10 @@ function App() {
           onHandleUpdate={onHandleUpdate}
           wallet={wallet}
           setWallet={setWallet}
+          currentUser={currentUser}
           />
-        </Route>
+          ) : null} 
+          </Route>
       </Switch>
       </BrowserRouter>
       {currentUser ? 
