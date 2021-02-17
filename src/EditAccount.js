@@ -40,44 +40,61 @@ function EditAccount({currentUser, setWallet}) {
 
     return (
         <div className="signup">
-        <form onSubmit={handleSignForm}>
+        <form  className="edit-from"onSubmit={handleSignForm}>
+            <br/>
          <h1>Edit Account</h1>
-         <label htmlFor="Name">First Name</label>
+         <br />
          <input
+            className="edit-input"
+            placeholder="First Name"
              type="text"
              value={firstName}
              onChange={(e) => setFirstName(e.target.value)}
          />
         <br /> 
-         <label htmlFor="cost">Last Name</label>
+        <br /> 
+        <br /> 
          <input 
+             placeholder="Last Name"
+             className="edit-input"
              type="text"
              value={lastName}
              onChange={(e) => setLastName(e.target.value)}
          />
          <br /> 
-          <label htmlFor="cost">Username</label>
+         <br /> 
+         <br /> 
          <input 
              type="text"
+             placeholder="Username"
+             className="edit-input"
              value={username}
              onChange={(e) => setUsername(e.target.value)}
          />
          <br /> 
-          <label htmlFor="cost">Password</label>
+         <br /> 
+         <br /> 
          <input 
              type="password"
+             placeholder="Password"
+             className="edit-input"
              value={password}
              onChange={(e) => setPassword(e.target.value)}
          />
          <br /> 
-          <label htmlFor="cost">Monthly income after taxes</label>
+         <br /> 
+         <br /> 
          <input 
              type="text"
+             placeholder="Monthly income after taxes"
+             className="edit-input"
              value={monthlyIncome}
              onChange={(e) => setMonthlyIncome(e.target.value)}
-         />
+         /> 
          <br /> 
-         <input type="submit" value="Submit" />
+         <br /> 
+         <br /> 
+         <input  className="edit-button"type="submit" value="Submit" />
         </form>
     </div>
        

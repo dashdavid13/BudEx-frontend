@@ -59,6 +59,7 @@ function App() {
   function handleSignUp(user) {
     console.log(user)
     setCurrentUser(user)
+    history.push("/profile")
   }
 
   function handleLogout() {

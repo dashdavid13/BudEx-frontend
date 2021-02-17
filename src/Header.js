@@ -30,10 +30,11 @@ function Header({handleLogout,handleDeleteAccount, currentUser, wallet, setWalle
 			            <h1 className="title">BudEx</h1>
 		            </div>
                     : null }
+                   { currentUser ? 
 		            <nav className="header-navigation">
 
                     <div className={`modalBackground modalShowing-${modalState}`}>
-                                <div className="modalInner">
+                                <div className="modal-create-expense">
                                 {currentUser ?
                                     <ExpenseForm
                                     currentUser={currentUser}
@@ -44,38 +45,43 @@ function Header({handleLogout,handleDeleteAccount, currentUser, wallet, setWalle
                                     />
                                 : null}
                                 {currentUser ?
-                                <button className="exitButton" onClick={() => toggleModalState()}>Exit</button>
+                                <button className="exitButton" onClick={() => toggleModalState()}>❌</button>
                                 : null}
                                 </div>
                             </div>
                             {currentUser ?
-                            <button  className="exform_button"onClick={() => toggleModalState()}>Add Expense</button>
+                            <button  id="exform_button"onClick={() => toggleModalState()}>Add Expense</button>
                             : null}
-			            <ul>
-            <li> {currentUser ?<p>Setting</p> : null }
-                <ul>
-                <li><div className={`modalBackground modalShowing-${secondModalState}`}>
+			<div className="dropdown">
+             {currentUser ?<p className="dropbtn">Settings</p> : null }
+                  <div className="dropdown-content">
+               <div className={`modalBackground modalShowing-${secondModalState}`}>
                                 <div className="modalInner">
                                 {currentUser ?
                                 <EditAccount currentUser={currentUser} setWallet={setWallet}/>
                                 : null}
                             {currentUser ?
-                                <button className="exitButton" onClick={() => secondToggleModalState()}>Exit</button>
+                                <button className="exitButton" onClick={() => secondToggleModalState()}>❌</button>
                                 : null}
                                 </div>
                             </div>
                             {currentUser ?
                             <button  className="exform_button"onClick={() => secondToggleModalState()}>Edit account</button>
-                            : null}</li>
-                <li> {currentUser ?
+                            : null}
+                            <br />
+                 {currentUser ?
                                 <button className="logout-button"  onClick={() => handleLogout(currentUser)}>Log out</button>
-                                : null }</li>
-                <li>  {currentUser ? <h1 className="welcome-user"> Welcome, {currentUser.first_name}! You have ${wallet} remaining for the month</h1> : null}</li>
-                <li>  {currentUser ? <button  onClick={handleDeleteAccount}className="welcome-user"> Delete Account</button> : null}</li>
-                </ul>
-            </li>
-            </ul>
+                                : null }
+                  {currentUser ? <h3 className="welcome-user"> Welcome, {currentUser.first_name}.
+                  <br/> 
+                  <br/> ${wallet} remaining for the month</h3> : null}
+                  {currentUser ? <button  onClick={handleDeleteAccount}className="delete-user"> Delete Account</button> : null}
+                  </div>
+            </div> 
+           
+            
 		            </nav>
+                    : null }
 	            </div>
         </header>
 

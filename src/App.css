@@ -2,13 +2,7 @@
   text-align: center;
 }
 
-.exform_button{
-  border-radius: 10px;
-  background:#5500e8c4;
-  color:white;
-  border:none;
 
-}
 
 
 
@@ -65,7 +59,9 @@ this is notepad */
 /**
  * Notepad
  */
-
+.note-add{
+  text-align: center;
+}
  #app {
   margin-top: 20px;
 }
@@ -209,8 +205,8 @@ ul {
   border:none;
   height: 59px;
   width: 357px;
-  border: 1px dotted black;
   margin: 0.5em;
+  font-size: 18px;
 }
 
 #username{
@@ -289,26 +285,34 @@ ul {
   line-height: 36px;
 }
 
-.header-navigation{
+nav.header-navigation{
   background: #6200EE;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 180px;
+  align-items: center;
 }
 /* 1. Top /A. Regular/a. Flat */
 
 
 .js-search{
-  justify-content: flex-end;
+
   border-radius: 10px;
   width: auto;
   height: 20px;
   text-align: center;
+
+
 }
 
 .filter{
-  justify-content: flex-end;
   border-radius: 10px;
   width: auto;
   height: 20px;
   text-align: center;
+
+ 
 }
 
 .notePad{
@@ -327,12 +331,188 @@ height:auto;
 border-radius: 10px;
 background-color: rgba(222, 218, 236, 0.548);
 margin: 20px;
-align-self: flex-end;
+
 }
 
 
 
 .flex-container{
   display: flex;
+  justify-content: space-around;
+  align-items:  center;
+  height: 600px;
+}
+
+.sort-flex{
+  display: flex;
+  flex-direction: column;
   align-items: flex-start;
+  margin: 10px;
+}
+
+.delete-btn{
+  border-radius: 10px;
+  background:#5500e8c4;
+}
+
+.btn-success{
+  border-radius: 10px;
+  background:#5500e8c4;
+  margin-left: 15px;
+}
+#note-add{
+  text-align: center;
+}
+
+
+
+.modal-create-expense{
+  margin:auto;
+  display:flex;
+  flex-direction: row;
+  background: rgba(225, 227, 241, 0.993);
+  width: 600px;
+  height: 700px
+}
+
+.addEXinput{
+  width:300px;
+  height: 62px;
+  text-align: center;
+  font-size: 20px;
+  background-color: #c4c4c475;
+  border-radius: 10px;
+
+}
+
+.addexSubmit{
+  width:477px;
+  height: 58px;
+  background:#5500e8c4;
+  color:white;
+  border:none;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.exFORM{
+  left: 2px;
+  position: absolute;
+  right: 1px;
+  top:250px;
+}
+
+.red{
+  color: red;
+  background-color: transparent;
+}
+
+.edit-from{
+  text-align:center;
+  display: inline-block;
+}
+
+
+.edit-input{
+  width:339px;
+  height: 62px;
+  text-align: center;
+  font-size: 20px;
+  background-color: #c4c4c475;
+  border-radius: 10px;
+}
+
+.edit-button{
+  width:477px;
+  height: 58px;
+  background:#5500e8c4;
+  color:white;
+  border:none;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+
+/* drop down */
+
+#exform_button{
+  background-color: #5e4caf;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px; 
+  height:50px;
+  margin:5px;
+  align-self:flex-end;
+  margin-left: 1000px;
+}
+
+.dropbtn {
+  background-color: #5e4caf;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  margin:5px;
+  margin-top:123px;
+}
+
+.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  background-color: #dddff7;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 10px;
+}
+
+.dropdown-content a {
+  color: black;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  
+}
+
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.exform_button, .logout-button{
+  border-radius: 10px;
+  background: #5500e8c4;
+  color: rgb(209, 209, 211);
+  padding: 16px;
+  font-size: 16px;
+  align-content: center;
+  border: none;
+  cursor: pointer;
+  height: 45px;
+  margin: 5px;
+}
+
+.delete-user{
+  border-radius: 10px;
+  background: #e8001fc4;
+  color: rgb(209, 209, 211);
+  padding: 16px;
+  font-size: 16px;
+  align-content: center;
+  border: none;
+  cursor: pointer;
+  height: 45px;
+  margin: 5px;
+}
+
+.welcome-user{
+  margin:9px;
 }

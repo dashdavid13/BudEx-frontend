@@ -21,6 +21,7 @@ function ExpenseDetail({ expense, handleDeleteExpense}) {
     return (
         <>
        <div className="exform">
+
         <h3>{expense.name}</h3>
         <h3>${expense.cost}</h3>
         <button className="delete-btn" onClick={() => handleDeleteExpense(expense)}>Delete</button>

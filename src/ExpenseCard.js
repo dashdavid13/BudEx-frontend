@@ -28,7 +28,7 @@ function ExpenseCard({setWallet ,wallet, expenses, search, handleSearchChange, h
     
     return (
         <>
-        <div className="flex-container">
+        <div className="sort-flex">
             <Search
                 search={search}
                 handleSearchChange={handleSearchChange}
@@ -37,8 +37,11 @@ function ExpenseCard({setWallet ,wallet, expenses, search, handleSearchChange, h
                 sortby={sortBy}
                 setSortBy={setSortBy}
                 />
+                </div>
+            <div className="flex-container">
        <div className="excard">
            <h2>Current Bills</h2>
+            <hr/>
            {usersExpenses.length > 0 ? usersExpenses : "You have no expenses"}
        </div>
        <div className="notePad">

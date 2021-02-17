@@ -52,21 +52,28 @@ if(currentUser && wallet >= cost ){
 
     return (
        <div className="exform">
-           <form onSubmit={handleSubmit}>
-            <h1>Create an Expense</h1>
-            <label htmlFor="Name">Name</label>
+           <form className="exFORM" onSubmit={handleSubmit}>
+            <h1>Add an Expense</h1>
+            <br />
             <input
+                className="addEXinput"
+                placeholder="Name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
-            <label htmlFor="cost">Cost</label>
+            <br />
+            <br />
+            <br />
             <input 
+                className="addEXinput"
+                placeholder="Cost"
                 type="text"
                 value={cost}
                 onChange={(e) => setCost(e.target.value)}
             />
-            <input type="submit" value="Submit" />
+            <h5 className="red">Due date will start once submitted</h5>
+            <input type="submit" className="addexSubmit"value="Submit" />
            </form>
        </div>
        

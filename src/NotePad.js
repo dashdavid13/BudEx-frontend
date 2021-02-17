@@ -44,22 +44,21 @@ function NotePad( {isLoaded}) {
           <div className="panel panel-default">
           <div className="panel-body">
           <form className="form-group">
-            <label for="note-add">Add New Note</label>
             <input 
               id="note-add" 
               className="form-control" 
               type="text"
               value={this.state.inputText}
-              placeholder="Type note here"
+              placeholder="New Note"
               onChange={this.handleInputText.bind(this)}
               />
-            <label for="select-color" >Select Color</label>
             <div id="select-color">
               <input className="color-radio" type="radio" onClick={this.selectGreen.bind(this)} checked={this.state.color == 'green' ? 'checked' : '' } /> Green &nbsp;
               <input className="color-radio" type="radio" onClick={this.selectRed.bind(this)} checked={this.state.color == 'red' ? 'checked' : '' } /> Red &nbsp;
               <input className="color-radio" type="radio" onClick={this.selectBlue.bind(this)} checked={this.state.color == 'blue' ? 'checked' : '' } /> Blue &nbsp;
               <input className="color-radio" type="radio" onClick={this.selectOrange.bind(this)} checked={this.state.color == 'orange' ? 'checked' : '' } /> Orange &nbsp;
             </div>
+           <br/>
           </form>
             <button className="btn btn-success" onClick={this.handleAddNote.bind(this)} >Add Note</button>
             <span className="alerts">{this.state.alert}</span>
