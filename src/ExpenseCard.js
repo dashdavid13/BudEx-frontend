@@ -2,11 +2,14 @@ import React from 'react';
 import ExpenseDetail from "./ExpenseDetail"
 import Search from './Search'
 import FilterSort from './FilterSort'
+import NotePad from './NotePad'
 
 
 
-function ExpenseCard({setWallet ,wallet, expenses, search, handleSearchChange, handleDeleteExpense, sortBy, setSortBy, onHandleUpdate, currentUser}) {
+function ExpenseCard({setWallet ,wallet, expenses, search, handleSearchChange, handleDeleteExpense, sortBy, setSortBy, onHandleUpdate, currentUser, isLoaded}) {
 
+
+    
     const usersExpenses = expenses.map((expense) => {
     return (<ExpenseDetail
         key={expense.id}
@@ -20,10 +23,12 @@ function ExpenseCard({setWallet ,wallet, expenses, search, handleSearchChange, h
         )
     })
 
+    
 
     
     return (
         <>
+        <div className="flex-container">
             <Search
                 search={search}
                 handleSearchChange={handleSearchChange}
@@ -33,9 +38,14 @@ function ExpenseCard({setWallet ,wallet, expenses, search, handleSearchChange, h
                 setSortBy={setSortBy}
                 />
        <div className="excard">
-           <h1>Current Expenses</h1>
+           <h2>Current Bills</h2>
            {usersExpenses.length > 0 ? usersExpenses : "You have no expenses"}
        </div>
+       <div className="notePad">
+       <NotePad isLoaded={isLoaded}/>
+       </div>
+       </div>
+        
        </>
        
     )

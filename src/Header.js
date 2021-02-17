@@ -1,11 +1,10 @@
 import React, {useState} from 'react'
-import {BrowserRouter, NavLink} from "react-router-dom";
 import EditAccount from "./EditAccount"
 import ExpenseForm from "./ExpenseForm"
 
 
 
-function Header({ onLogout, currentUser, wallet, setWallet, expenses, setExpenses, onAddExpense}) {
+function Header({handleLogout,handleDeleteAccount, currentUser, wallet, setWallet, expenses, setExpenses}) {
     
     const [modalState, setModalState] = useState(false)
     const [secondModalState, setSecondModalState] = useState(false )
@@ -19,55 +18,68 @@ function Header({ onLogout, currentUser, wallet, setWallet, expenses, setExpense
     const secondToggleModalState = () => {
         setSecondModalState(!secondModalState)
     }
+
+
+
     
     return (
-        <>
-        <div className="banner">
-            <h1>BudEx</h1>
-        </div>
-        <div id="container">
-            <nav>
-            
-                <BrowserRouter>{currentUser ?
-                    <NavLink className="logout-button" exact to="/" onClick={onLogout}>Log out</NavLink>
+            <>
+            <header className="header-outer">
+	            <div className="header-inner responsive-wrapper">
+		            {currentUser ? <div className="header-logo">
+			            <h1 className="title">BudEx</h1>
+		            </div>
                     : null }
-                    </BrowserRouter>
+		            <nav className="header-navigation">
 
-                <div className={`modalBackground modalShowing-${secondModalState}`}>
-                    <div className="modalInner">
-                    {currentUser ?
-                    <EditAccount />
-                    : null}
-                {currentUser ?
-                    <button className="exitButton" onClick={() => secondToggleModalState()}>Exit</button>
-                    : null}
-                    </div>
-                </div>
-                {currentUser ?
-                <button  className="exform_button"onClick={() => secondToggleModalState()}>Edit account</button>
-                : null}
-                <div className={`modalBackground modalShowing-${modalState}`}>
-                    <div className="modalInner">
-                    {currentUser ?
-                        <ExpenseForm
-                        currentUser={currentUser}
-                        expenses={expenses}
-                        setExpenses={setExpenses}
-                        setWallet={setWallet} 
-                        wallet={wallet}
-                        />
-                    : null}
-                    {currentUser ?
-                    <button className="exitButton" onClick={() => toggleModalState()}>Exit</button>
-                    : null}
-                    </div>
-                </div>
-                {currentUser ?
-                <button  className="exform_button"onClick={() => toggleModalState()}>Add Expense</button>
-                : null}
-            </nav>
-            {currentUser ? <h1 className="welcome-user"> Welcome, {currentUser.first_name}! You have ${wallet} remaining for the month</h1> : null}
-        </div>
+                    <div className={`modalBackground modalShowing-${modalState}`}>
+                                <div className="modalInner">
+                                {currentUser ?
+                                    <ExpenseForm
+                                    currentUser={currentUser}
+                                    expenses={expenses}
+                                    setExpenses={setExpenses}
+                                    setWallet={setWallet} 
+                                    wallet={wallet}
+                                    />
+                                : null}
+                                {currentUser ?
+                                <button className="exitButton" onClick={() => toggleModalState()}>Exit</button>
+                                : null}
+                                </div>
+                            </div>
+                            {currentUser ?
+                            <button  className="exform_button"onClick={() => toggleModalState()}>Add Expense</button>
+                            : null}
+			            <ul>
+            <li> {currentUser ?<p>Setting</p> : null }
+                <ul>
+                <li><div className={`modalBackground modalShowing-${secondModalState}`}>
+                                <div className="modalInner">
+                                {currentUser ?
+                                <EditAccount currentUser={currentUser} setWallet={setWallet}/>
+                                : null}
+                            {currentUser ?
+                                <button className="exitButton" onClick={() => secondToggleModalState()}>Exit</button>
+                                : null}
+                                </div>
+                            </div>
+                            {currentUser ?
+                            <button  className="exform_button"onClick={() => secondToggleModalState()}>Edit account</button>
+                            : null}</li>
+                <li> {currentUser ?
+                                <button className="logout-button"  onClick={() => handleLogout(currentUser)}>Log out</button>
+                                : null }</li>
+                <li>  {currentUser ? <h1 className="welcome-user"> Welcome, {currentUser.first_name}! You have ${wallet} remaining for the month</h1> : null}</li>
+                <li>  {currentUser ? <button  onClick={handleDeleteAccount}className="welcome-user"> Delete Account</button> : null}</li>
+                </ul>
+            </li>
+            </ul>
+		            </nav>
+	            </div>
+        </header>
+
+       
         </>
        
     )

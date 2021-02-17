@@ -11,7 +11,7 @@ function ExpenseForm({currentUser, setExpenses, expenses, wallet, setWallet  }) 
    
 
 function handleSubmit(e){
-    debugger
+    
       e.preventDefault()
       const data = {
         name:name,
@@ -19,6 +19,7 @@ function handleSubmit(e){
         user_id:currentUser.id,
       }
 if(currentUser && wallet >= cost ){
+    debugger
     fetch("http://localhost:3000/expenses/new", {
         method: "POST",
         headers: {
@@ -44,6 +45,7 @@ if(currentUser && wallet >= cost ){
             .then(updatedUserObj => setWallet(updatedUserObj.monthly_income))
             })
         } else {
+            debugger
             alert("Cant afford another expense with your current monthly income")
         }
     }

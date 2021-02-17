@@ -15,11 +15,11 @@ function handleEditForm(e) {
     const data={
         id: id,
         name:name,
-        cost:cost,
+        cost:cost + wallet,
     }
   
     if(currentUser && wallet >= cost){
-         
+         debugger
         onHandleUpdate(data)
         fetch(`http://localhost:3000/expenses/${id}`, {
             method: "PATCH", 

@@ -27,9 +27,9 @@
     <title>BudEx</title>
   </head>
   <body>
-    <div id="root"></div>
-    <script>
-      window.watsonAssistantChatOptions = {
+      <div id="root"></div>
+      
+      <script>window.watsonAssistantChatOptions = {
           integrationID: "05213628-87fb-4720-a19d-249974fbfd11", // The ID of this integration.
           region: "us-south", // The region your integration is hosted in.
           serviceInstanceID: "b3fda769-24c2-468c-80c5-04d6c11ac2cf", // The ID of your service instance.
@@ -39,9 +39,8 @@
         const t=document.createElement('script');
         t.src="https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
         document.head.appendChild(t);
-      });
-    </script>
-    <!--
+      });</script>
+      <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 

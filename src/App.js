@@ -1,9 +1,10 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import Header from "./Header"
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory} from "react-router-dom";
 import ExpenseCard from "./ExpenseCard"
 import Login from "./Login"
+
 
 function App() {
 
@@ -14,24 +15,25 @@ function App() {
   const[sortBy, setSortBy] = useState("name")
   const [isLoaded, setIsLoaded] = useState(false)
 
+  const history = useHistory();
 
   useEffect(() => {
-    
-    const token = localStorage.getItem("token")
-  
-    fetch("http://localhost:3000/home", {
-      method: "GET",
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    })
-    .then (r => r.json())
-    .then ((user) => {
-      setCurrentUser(user)
-      setExpenses(user.expenses)
-      setWallet(user.monthly_income)
-      setIsLoaded(true)
-    })
+      const token = localStorage.getItem("token")
+    if (token) {
+        fetch("http://localhost:3000/home", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(r => r.json())
+            .then((user) => {
+                setCurrentUser(user)
+                setExpenses(user.expenses)
+                setWallet(user.monthly_income)
+                setIsLoaded(true)
+            });
+  }
   }, [])
 
 
@@ -53,10 +55,16 @@ function App() {
   //   );
 
   // },[])
- 
+
+  function handleSignUp(user) {
+    console.log(user)
+    setCurrentUser(user)
+  }
+
   function handleLogout() {
     setCurrentUser(null);
     localStorage.removeItem("token")
+    history.push("/");
   }
 
   function handleSearchChange(newSearch){
@@ -73,6 +81,7 @@ function App() {
   .then(expenseObj => {
     setExpenses(expenses.filter((expense) => expense.id !== expenseToDelete.id))
     fetch(`http://localhost:3000/users/${currentUser.id}`, {
+
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"
@@ -86,69 +95,85 @@ function App() {
   })
   }
 
-   
 
-
-  function onHandleUpdate(updatedDetails) {
-    const updatedExpenseList = expenses.map((expense) => {
-      return expense.id === updatedDetails.id ? updatedDetails : expense
+  function handleDeleteAccount(id){
+    debugger
+    fetch(`http://localhost:3000/users/${currentUser.id}`, {
+      method: "DELETE"
     })
-    setExpenses(updatedExpenseList)
+    .then(r => r.json())
+    .then(userObj=> {
+      setCurrentUser(null)
+      localStorage.removeItem("token")
+    });
+    history.push("/");
   }
 
-  
-
-// if (!isLoaded) return <h1>Loading...</h1>
-
-// const displayedExpenses = expenses.filter( expense => 
    
-//   expense.name.toLowerCase().includes(search.toLowerCase()))
-//   .sort((x, y) => {
-//     if (sortBy === "Due soon") {
-//       return x.created_at-y.created_at
-//     } else{
-//       return x.name.localeCompare(y.name)
-//     }
-//   })
+
+
+  // function onHandleUpdate(updatedDetails) {
+  //   const updatedExpenseList = expenses.map((expense) => {
+  //     return expense.id === updatedDetails.id ? updatedDetails : expense
+  //   })
+  //   setExpenses(updatedExpenseList)
+  // }
+
+  const displayedExpenses = expenses.filter( expense => 
+   
+    expense.name.toLowerCase().includes(search.toLowerCase()))
+    .sort((x, y) => {
+      if (sortBy === "Due soon") {
+        return x.created_at-y.created_at
+      } else{
+        return x.name.localeCompare(y.name)
+      }
+    })
+    
+  // if (!isLoaded) return <h1>Loading</h1>
+    
+    
   return (
     <div className="App">
       <Header 
-        onLogout={handleLogout} 
+        handleLogout={handleLogout} 
         currentUser={currentUser}
         expenses={expenses}
         setExpenses={setExpenses}
         setWallet={setWallet}   
         wallet={wallet}
+        handleDeleteAccount={handleDeleteAccount}
        
       />
-      <BrowserRouter>
+      
+
       <Switch>
 
         <Route exact path="/">
           <Login 
           setCurrentUser={setCurrentUser}
           currentUser={currentUser} 
-
+          handleSignUp={handleSignUp}
           />
         </Route>
         <Route exact path="/profile">
           {currentUser ? (
           <ExpenseCard
-          expenses={expenses}
+          expenses={displayedExpenses}
           search={search}
           handleSearchChange={handleSearchChange}
           handleDeleteExpense={handleDeleteExpense}
           sortBy={sortBy}
           setSortBy={setSortBy}
-          onHandleUpdate={onHandleUpdate}
+          // onHandleUpdate={onHandleUpdate}
           wallet={wallet}
           setWallet={setWallet}
           currentUser={currentUser}
+          isLoaded={isLoaded}
           />
           ) : null} 
           </Route>
-      </Switch>
-      </BrowserRouter>
+      </Switch> 
       {currentUser ? 
       <div id="chat-bot"></div>
       : null }

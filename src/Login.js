@@ -1,14 +1,14 @@
 import React, {useState} from 'react'
 import SignUp from './SignUp';
 import { useHistory } from "react-router-dom";
+import gold from './gold.png'
 
 
-
-
-function Login({setCurrentUser, currentUser}) {
+function Login({setCurrentUser, currentUser,handleSignUp}) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [modalState, setModalState] = useState(false)
+    const [errors, setErrors] = useState("")
 
 
     const history = useHistory()
@@ -31,44 +31,70 @@ function Login({setCurrentUser, currentUser}) {
      })
      .then((r) => r.json())
      .then((data) => {
-        setCurrentUser(data.user)
-        localStorage.setItem("token", data.token);
-     })
-     history.push("/profile")
-    }
+        if(data.user){
+            setCurrentUser(data.user)
+            localStorage.setItem("token", data.token)
+            history.push("/profile")
+     } else {
+            setErrors(data.error)
+         }
+     });
+}
+
+    
 
     return (
         <>
+        
          {currentUser ? null :
        <div className="login">
-        
-        <form onSubmit={handleSubmit}>
-        <h1>Login </h1>
-        <label htmlFor="username">Username</label>
+        <h1 className="login-title">Budex</h1>
+        <h3 className="login-explain">Create and keep track of your bills. </h3>
+        <div className="image-div">
+        <img className="image"src={gold} alt="gold coins"/>
+        </div>
+        <form className="login-form" onSubmit={handleSubmit}>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         <input
           type="text"
+          placeholder="Username"
           id="username"
           autoComplete="off"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <label htmlFor="password">Password</label>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+
         <input
           type="password"
+          placeholder="Password"
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="current-password"
         />
-        <input type="submit" value="Login" />
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <input type="submit" value="Login" id="login-button" />
+        <br/>
+        <br/>
+        <br/>
+        <button id="signup-bottom" className="exform_button"onClick={() => toggleModalState()}>SignUp</button>
         </form>
-        <button  className="exform_button"onClick={() => toggleModalState()}>SignUp</button>
        </div>
         }
        <div className={`modalBackground modalShowing-${modalState}`}>
         <div className="modalInner">
-           <SignUp />
-           <button className="exitButton" onClick={() => toggleModalState()}>Exit</button>
+           <SignUp handleSignUp={handleSignUp}/>
+           <button className="exitButton" onClick={() => toggleModalState()}>❌</button>
         </div>
        </div>
         
